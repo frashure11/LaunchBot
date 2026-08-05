@@ -1,5 +1,6 @@
 .env
 commands.yaml
+launchbot.service
 __pycache__/
 *.pyc
 logs/

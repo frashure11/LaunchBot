@@ -78,31 +78,21 @@ log file under `logs/`.
 
 ## Deploying to the server
 
-Run it under systemd so it survives reboots and restarts on crash. Example
-unit file (`/etc/systemd/system/launchbot.service`):
-
-```ini
-[Unit]
-Description=LaunchBot Discord bot
-After=network-online.target
-
-[Service]
-Type=simple
-User=youruser
-WorkingDirectory=/home/youruser/projects/LaunchBot
-ExecStart=/home/youruser/projects/LaunchBot/.venv/bin/python bot.py
-Restart=on-failure
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-```
+Run it under systemd so it survives reboots and restarts on crash. A
+template unit file is at `launchbot.service.example` — copy it and fill in
+your real username (same pattern as `.env.example`/`commands.example.yaml`):
 
 ```bash
+sudo cp launchbot.service.example /etc/systemd/system/launchbot.service
+sudo nano /etc/systemd/system/launchbot.service   # fix youruser -> your real username
 sudo systemctl daemon-reload
 sudo systemctl enable --now launchbot
 journalctl -u launchbot -f   # tail logs
 ```
+
+`enable` is what makes it come back up automatically after a reboot;
+`--now` also starts it immediately. `Restart=on-failure` handles it crashing
+mid-session.
 
 ## Security notes
 

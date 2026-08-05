@@ -1,0 +1,28 @@
+# Copy to /etc/systemd/system/launchbot.service on the server and replace
+# `youruser` with your real username (whichever account cloned the repo,
+# owns the venv, and has permission to execute the scripts in commands.yaml).
+#
+#   sudo cp launchbot.service.example /etc/systemd/system/launchbot.service
+#   sudo nano /etc/systemd/system/launchbot.service   # fix youruser -> real username
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now launchbot
+#   journalctl -u launchbot -f                        # tail logs
+#
+# This file itself stays generic and git-tracked; the filled-in copy lives
+# only in /etc/systemd/system/ on the server, same pattern as .env/commands.yaml.
+
+[Unit]
+Description=LaunchBot Discord bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=youruser
+WorkingDirectory=/home/youruser/projects/LaunchBot
+ExecStart=/home/youruser/projects/LaunchBot/.venv/bin/python bot.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
