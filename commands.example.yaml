@@ -1,0 +1,26 @@
+# Copy this file to commands.yaml and fill in real script paths for the
+# machine the bot actually runs on (your server — not this laptop).
+#
+# commands.yaml is gitignored since it may reveal details about your
+# server's file layout.
+
+scripts:
+  minecraft:
+    description: Start the Minecraft server
+    aliases: [mc]
+    start: /home/youruser/scripts/start-mc.sh
+    stop: /home/youruser/scripts/stop-mc.sh   # optional — omit if there's no clean stop script
+    # args: []                            # optional extra CLI args passed to `start`
+    # cwd: /home/youruser/scripts            # optional working directory for the process
+
+  zomboid:
+    description: Start the Project Zomboid server
+    aliases: [pz, projectzomboid]
+    start: /home/youruser/scripts/start-zomboid.sh
+    stop: /home/youruser/scripts/stop-zomboid.sh
+
+  hytale:
+    description: Start the Hytale server
+    aliases: []
+    start: /home/youruser/scripts/start-hytale.sh
+    stop: /home/youruser/scripts/stop-hytale.sh
